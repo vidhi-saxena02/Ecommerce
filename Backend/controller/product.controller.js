@@ -15,6 +15,24 @@ exports.getAllProducts = async (req, res) => {
   res.status(200).json({ success: true, products });
 };
 
+//Get single Product/product details
+
+exports.getProductDetails = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return res.status(500).json({
+      success: false,
+      message: "Product not found",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+};
+
 //Admin
 exports.updateProducts = async (req, res, next) => {
   let product = await Product.findById(req.params.id);
