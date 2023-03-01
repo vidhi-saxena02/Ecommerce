@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-moongose.connection.once("open", () => {
+mongoose.connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-moongose.connection.on("error", (err) => {
+mongoose.connection.on("error", (err) => {
   console.log(
     "MongoDB connection error. Please make sure MongoDB is running. " + err
   );
