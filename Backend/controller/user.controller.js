@@ -97,3 +97,53 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     return next(new Errorhandler(error.message, 500));
   }
 });
+
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await UserDatabase.findById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await UserDatabase.findById(req.user.id).select("+password");
+
+  // Check previous user password
+  const isMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isMatched) {
+    return next(new Errorhandler("Old password is incorrect", 400));
+  }
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new Errorhandler("Password does not match", 400));
+  }
+
+  user.password = req.body.newPassword;
+
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  // Update avatar: TODO
+
+  const user = await UserDatabase.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
