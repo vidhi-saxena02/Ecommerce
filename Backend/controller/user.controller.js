@@ -147,3 +147,67 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     user,
   });
 });
+
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await UserDatabase.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
+  const users = await UserDatabase.findById(req.params.id);
+
+  if (!users) {
+    return next(
+      new Errorhandler(`User with Id ${req.params.id} not found`, 404)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+exports.updateRole = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await UserDatabase.findByIdAndUpdate(
+    req.params.id,
+    newUserData,
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await UserDatabase.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new Errorhandler(`User with Id ${req.params.id} not found`, 404)
+    );
+  }
+  //TODO: Delete user avatar
+
+  await UserDatabase.findByIdAndDelete(req.params.id);
+
+  res.status(200).json({
+    success: true,
+    message: "User deleted successfully",
+  });
+});
