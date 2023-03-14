@@ -6,7 +6,7 @@ import { MdSearch } from "react-icons/md";
 import { MdAddShoppingCart } from "react-icons/md";
 
 const options = {
-  burgerColorHover: "#eb4034",
+  burgerColorHover: "#630330",
   logo,
   logoWidth: "20vmax",
   navColor1: "white",
@@ -26,7 +26,7 @@ const options = {
   nav2justifyContent: "flex-end",
   nav3justifyContent: "flex-start",
   nav4justifyContent: "flex-start",
-  link1ColorHover: "#eb4034",
+  link1ColorHover: "#630330",
   link1Margin: "1vmax",
   profileIconUrl: "/login",
   profileIcon: true,
@@ -38,9 +38,9 @@ const options = {
   cartIcon: true,
   cartIconColor: "rgba(35, 35, 35,0.8)",
   CartIconElement: MdAddShoppingCart,
-  profileIconColorHover: "#eb4034",
-  searchIconColorHover: "#eb4034",
-  cartIconColorHover: "#eb4034",
+  profileIconColorHover: "#630330",
+  searchIconColorHover: "#630330",
+  cartIconColorHover: "#630330",
   cartIconMargin: "1vmax",
 };
 
