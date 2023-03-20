@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
 import Product from "./Product";
 import MetaData from "../Layout/MetaData";
+import { getProducts } from "../../AxiosApi/ProductApi";
+import { useDispatch, useSelector } from "react-redux";
 
 const product = {
   name: "Tshirt",
@@ -12,6 +14,10 @@ const product = {
 };
 
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <>
       <MetaData title="Ecommerce" />
