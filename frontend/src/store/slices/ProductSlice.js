@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { clearErrors } from "../manulActions";
 
 const ProductSlice = createSlice({
   name: "product",
@@ -21,9 +22,11 @@ const ProductSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    ClearError: (state) => {
+  },
+  extraReducers(builder) {
+    builder.addCase(clearErrors, (state) => {
       state.error = null;
-    },
+    });
   },
 });
 
@@ -31,7 +34,6 @@ export const {
   fetchProductsStart,
   fetchProductsSuccess,
   fetchProductsFailure,
-  ClearError,
 } = ProductSlice.actions;
 
 export const productReducer = ProductSlice.reducer;

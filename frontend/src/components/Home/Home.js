@@ -5,43 +5,52 @@ import Product from "./Product";
 import MetaData from "../Layout/MetaData";
 import { getProducts } from "../../AxiosApi/ProductApi";
 import { useDispatch, useSelector } from "react-redux";
-
-const product = {
-  name: "Tshirt",
-  price: 3000,
-  _id: "1",
-  images: [{ url: "https://i.ibb.co/DRST11n/1.webp" }],
-};
+import Loader from "../Layout/Loader/Loader";
+import { useToasts } from "@geist-ui/core";
+import axios from "axios";
 
 const Home = () => {
   const dispatch = useDispatch();
+
+  const { loading, products, error } = useSelector((state) => state.product);
+
+  const { setToast } = useToasts();
+
   useEffect(() => {
+    if (error) {
+      setToast({
+        text: error,
+        type: "error",
+      });
+    }
     dispatch(getProducts());
-  }, [dispatch]);
+  }, [dispatch, error]);
   return (
     <>
-      <MetaData title="Ecommerce" />
-      <div className="banner">
-        <p>Welcome to ECM</p>
-        <h1>Find Amazing Products Below</h1>
-        <a href="#container">
-          <button>
-            Explore <CgMouse />
-          </button>
-        </a>
-      </div>
-      <h2 className="homeheading">Featured Products</h2>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <MetaData title="Ecommerce" />
+          <div className="banner">
+            <p>Welcome to ECM</p>
+            <h1>Find Amazing Products Below</h1>
+            <a href="#container">
+              <button>
+                Explore <CgMouse />
+              </button>
+            </a>
+          </div>
+          <h2 className="homeheading">Featured Products</h2>
 
-      <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-      </div>
+          <div className="container" id="container">
+            {products.products &&
+              products.products.map((product) => (
+                <Product key={product.id} product={product} />
+              ))}
+          </div>
+        </>
+      )}
     </>
   );
 };
