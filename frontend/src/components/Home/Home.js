@@ -7,7 +7,6 @@ import { getProducts } from "../../AxiosApi/ProductApi";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layout/Loader/Loader";
 import { useToasts } from "@geist-ui/core";
-import axios from "axios";
 
 const Home = () => {
   const dispatch = useDispatch();
