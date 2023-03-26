@@ -7,6 +7,7 @@ import { getProducts } from "../../AxiosApi/ProductApi";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layout/Loader/Loader";
 import { useToasts } from "@geist-ui/core";
+import { clearErrors } from "../../store/store";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Home = () => {
         text: error,
         type: "error",
       });
+      dispatch(clearErrors());
     }
     dispatch(getProducts());
   }, [dispatch, error]);
