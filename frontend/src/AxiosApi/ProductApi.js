@@ -14,12 +14,12 @@ import {
 } from "../store/slices/ProductDetailSlice";
 
 export const getProducts =
-  (keyword = "") =>
+  (keyword = "", currentPage = 1) =>
   async (dispatch) => {
     try {
       dispatch(fetchProductsStart());
       const { data } = await axios.get(
-        `http://localhost:4000/api/v1/products?keyword=${keyword}`
+        `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${currentPage}`
       );
       dispatch(fetchProductsSuccess(data));
     } catch (error) {

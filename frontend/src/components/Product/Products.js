@@ -6,17 +6,24 @@ import Loader from "../Layout/Loader/Loader";
 import Product from "../Home/Product";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
+import Pagination from "react-js-pagination";
 
 const Products = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const { keyword } = useParams();
   const dispatch = useDispatch();
-  const { loading, products, productsCount, error } = useSelector(
+  const { loading, products, productsCount, resultPerPage } = useSelector(
     (state) => state.product
   );
 
+  const setCurrentPageNo = (e) => {
+    setCurrentPage(e);
+  };
+
   useEffect(() => {
-    dispatch(getProducts(keyword));
-  }, [dispatch, keyword]);
+    dispatch(getProducts(keyword, currentPage));
+  }, [dispatch, keyword, currentPage]);
 
   return (
     <>
@@ -31,6 +38,24 @@ const Products = () => {
                 <Product key={product._id} product={product} />
               ))}
           </div>
+          {resultPerPage < productsCount && (
+            <div className="paginationBox">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resultPerPage}
+                totalItemsCount={productsCount}
+                onChange={setCurrentPageNo}
+                nextPageText="Next"
+                prevPageText="Prev"
+                firstPageText="1st"
+                lastPageText="Last"
+                itemClass="page-item"
+                linkClass="page-link"
+                activeClass="pageItemactive"
+                activeLinkClass="pageLinkactive"
+              />
+            </div>
+          )}
         </>
       )}
     </>
