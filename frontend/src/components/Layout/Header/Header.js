@@ -35,6 +35,7 @@ const options = {
   searchIcon: true,
   searchIconColor: "rgba(35, 35, 35,0.8)",
   SearchIconElement: MdSearch,
+  searchIconUrl: "/search",
   cartIcon: true,
   cartIconColor: "rgba(35, 35, 35,0.8)",
   CartIconElement: MdAddShoppingCart,
