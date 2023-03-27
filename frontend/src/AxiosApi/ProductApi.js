@@ -13,15 +13,19 @@ import {
   getProductDetailFail,
 } from "../store/slices/ProductDetailSlice";
 
-export const getProducts = () => async (dispatch) => {
-  try {
-    dispatch(fetchProductsStart());
-    const { data } = await axios.get("http://localhost:4000/api/v1/products");
-    dispatch(fetchProductsSuccess(data));
-  } catch (error) {
-    dispatch(fetchProductsFailure(error.message));
-  }
-};
+export const getProducts =
+  (keyword = "") =>
+  async (dispatch) => {
+    try {
+      dispatch(fetchProductsStart());
+      const { data } = await axios.get(
+        `http://localhost:4000/api/v1/products?keyword=${keyword}`
+      );
+      dispatch(fetchProductsSuccess(data));
+    } catch (error) {
+      dispatch(fetchProductsFailure(error.message));
+    }
+  };
 
 export const clearError = () => (dispatch) => {
   dispatch(clearErrors());
