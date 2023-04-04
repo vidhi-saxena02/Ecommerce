@@ -9,7 +9,7 @@ const Product = ({ product }) => {
     activeColor: "tomato",
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
-    value: product.rating,
+    value: product.ratings,
   };
   return (
     <Link className="productCard" to={`/product/${product._id}`}>

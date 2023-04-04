@@ -9,7 +9,7 @@ const ReviewCard = ({ review }) => {
     activeColor: "tomato",
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
-    value: review.rating,
+    value: review.ratings,
   };
   return (
     <div className="reviewCard">

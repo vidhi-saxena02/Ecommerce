@@ -9,6 +9,7 @@ import ReviewCard from "./ReviewCard";
 import Loader from "../Layout/Loader/Loader";
 import { useToasts } from "@geist-ui/core";
 import { clearErrors } from "../../store/store";
+import MetaData from "../Layout/MetaData";
 
 const ProductDetails = ({}) => {
   const { id } = useParams();
@@ -31,7 +32,8 @@ const ProductDetails = ({}) => {
     dispatch(getProductDetail(id));
   }, [dispatch, id, error]);
 
-  const val = product.product && product.product.rating;
+  const val = product.product && product.product.ratings;
+  const name = product.product && product.product.name;
   const options = {
     edit: false,
     color: "rgba(20, 20,20, 0.1)",
@@ -46,6 +48,7 @@ const ProductDetails = ({}) => {
         <Loader />
       ) : (
         <>
+          <MetaData title={`${name}--Ecommerce`} />
           <div className="ProductDetail">
             <div>
               <Carousel>
