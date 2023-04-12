@@ -15,10 +15,26 @@ import {
   getProductDetailFail,
 } from "./slices/ProductDetailSlice";
 
+import {
+  loginRequest,
+  loginSuccess,
+  loginFail,
+  userReducer,
+  registerFail,
+  registerRequest,
+  registerSuccess,
+  loadUserFail,
+  loadUserRequest,
+  loadUserSuccess,
+  logoutSuccess,
+  logoutFail,
+} from "./slices/UserSlice";
+
 const store = configureStore({
   reducer: {
     product: productReducer,
     productDetail: productDetailReducer,
+    user: userReducer,
   },
   middleware: [thunk],
 });
@@ -31,5 +47,16 @@ export {
   getProductDetailRequest,
   getProductDetailSuccess,
   getProductDetailFail,
+  loginRequest,
+  loginSuccess,
+  loginFail,
+  registerFail,
+  registerRequest,
+  registerSuccess,
+  loadUserFail,
+  loadUserRequest,
+  loadUserSuccess,
+  logoutSuccess,
+  logoutFail,
   clearErrors,
 };
